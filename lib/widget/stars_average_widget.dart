@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class StarsAverageWidget extends StatelessWidget {
-  final List<int> rate;
-  StarsAverageWidget(this.rate);
+import 'package:understanding_Flutter_BloC/provider/event_provider.dart';
 
+class StarsAverageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int avg = (_sumRate() / rate.length).floor();
+    final List<int> rate = EventProvider.of(context).eventss.rate;
+
+    int avg = (_sumRate(rate) / rate.length).floor();
     List<bool> stars = [false, false, false, false, false];
 
     for (int i = 0; i < avg; i++) {
@@ -24,7 +25,7 @@ class StarsAverageWidget extends StatelessWidget {
     );
   }
 
-  int _sumRate() {
+  int _sumRate(List<int> rate) {
     int sum = 0;
     for (var r in rate) {
       sum += r;
